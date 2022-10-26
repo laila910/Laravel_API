@@ -15,15 +15,15 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
-            $table->integer('orderNumber');//random number
+            $table->unsignedBigInteger('id', false);
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('product_id')->references('id')->on('products'); 
             $table->foreign('user_id')->references('id')->on('users'); 
             $table->integer('quantity');
             $table->enum('orderStatus',array('pending','accepted','rejected'))->default('pending');
-            $table->timestamps();           
+            $table->timestamps();     
+            $table->primary(['id','user_id','product_id']);            
         });
        
 
